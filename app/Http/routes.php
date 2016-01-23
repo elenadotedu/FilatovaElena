@@ -12,7 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('validation_names', function() {
+    return view('data_validation.names');
+});
+
+Route::get('validation_duplicate_addresses', function() {
+    return view('data_validation.duplicate_addresses');
+});
+
+Route::get('validation_phone_numbers', function() {
+    return view('data_validation.phone_numbers');
 });
 
 /*
