@@ -30,3 +30,63 @@
 
 <!-- Main js file -->
 <script src="{{URL:: asset('assets/js/main.js')}}"></script>
+
+<!-- Misc javascripts -->
+<script type="text/javascript">
+    $('.numbers-only').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+    });
+
+    var bugs = new function()
+    {
+        var that = this;
+        this.options = {
+            dead_count_id: 'bugs_dead_count',
+            total_id: 'bugs_total_count'
+        };
+
+        this.init = function (options)
+        {
+            $.extend(true, this.options, options);
+
+            // initialize events
+            $('.bug').click(function () {
+                // remove bug and bug wrapper
+                var id = $(this).parent().attr('id');
+                that.kill(id);
+            });
+
+            return true;
+        }
+
+        this.kill = function(id)
+        {
+            $('#' + id + ' .bug').remove();
+
+            jQuery.ajax({
+                        url:  '{{route("bugs.kill")}}' + '?id=' + id,
+                    })
+                    .done(function(data) {
+                        that.updateScore();
+                    })
+                    .fail (function () {
+                        alert("Error killing bug");
+                    });
+        }
+
+        this.updateScore = function()
+        {
+            jQuery.ajax({
+                        url:  '{{route("bugs.dead_count")}}',
+                    })
+                    .done(function(data) {
+                        $("#" + that.options.dead_count_id).html(data);
+                    })
+                    .fail (function () {
+                        alert("Error updating count");
+                    });
+        }
+    };
+
+    bugs.init();
+</script>

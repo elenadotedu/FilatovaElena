@@ -24,6 +24,9 @@
 <!-- Data Tables -->
 <link href="{{URL:: asset('assets/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css">
 
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
+
 <style>
     @section('styles')
 
@@ -41,14 +44,50 @@
     }
 
     .navbar, .navbar-brand {
-        min-height:150px;
+        min-height:90px;
         background-color:#58a366; /*green*/
+    }
+
+    /*Make if so that right side bar is not all the way to the right*/
+    .navbar-right {
+        padding-right:20px;
+    }
+
+    /*fix scroll to the right*/
+    .navbar-nav.navbar-right:last-child
+    {
+        margin-right:0px;
     }
 
     /*Side bar*/
     #wrapper, #side-menu {
         /*background-color: #b7babb;*/
         background-color: #66b575; /*lighter greens*/
+    }
+
+    /*right side nav bar colors*/
+    .navbar-default .navbar-nav>.active>a,
+    .navbar-default .navbar-nav>.open>a,
+    .navbar-default .navbar-nav>.open>a:hover,
+    .navbar-default .navbar-nav>.active>a:hover,
+    .navbar-default .navbar-nav>.active>a:focus,
+    .navbar-default .navbar-nav>.open>a:focus
+    {
+        background-color: transparent;
+        color:#FFF;
+        font-size:18px;
+    }
+
+    /*right side dropdown*/
+    .navbar-right .dropdown-menu {
+        background-color:#66b575;
+    }
+    .navbar-right .dropdown-menu>li>a {
+        color:#FFF;
+        font-size:18px;
+    }
+    .navbar-right .dropdown-menu>li>a:hover {
+        background-color: #58a366;
     }
 
     /*Color of the side navigation links text*/
@@ -62,7 +101,43 @@
     #side-menu li a:active,
     #side-menu li a:visited
     {
-        background-color:#6cbe7b; /*light green*/
+        background-color:#58a366; /*light green 6cbe7b*/
+    }
+
+    /*Sidebar width*/
+    @media(min-width:768px) {
+        .sidebar {
+            width: 300px;
+        }
+        #page-wrapper {
+            margin: 0 0 0 300px;
+        }
+    }
+
+    /*Sidebar font*/
+    .sidebar {
+        font-size:18px;
+    }
+
+    /*Height of navigation links*/
+    .nav>li>a {
+       padding: 15px 15px;
+    }
+
+    @media(max-width:768px) {
+
+        /*Color of the menu button on small screens*/
+        .navbar-default .navbar-toggle {
+            background-color:#FFF;
+        }
+
+        /*The space between logo and nav*/
+        .navbar-collapse {
+            border-top:none;
+            border-bottom:1px solid;
+            box-shadow: none;
+        }
+
     }
 
     /*Side navigation divider color*/
@@ -71,105 +146,35 @@
         border-bottom-color:#FAFAFA;
     }
 
-    /*Sign in / out*/
-    .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus
-    {
-        background-color: #BAC5D1;
-        color: #3D5C79;
-    }
-
-    /*Make if so that sign in /sign up are not all the way to the right*/
-    .navbar-right {
-        padding-right:20px;
-    }
-
-    /*fix scroll to the right*/
-    .navbar-nav.navbar-right:last-child
-    {
-        margin-right:0px;
-    }
-
-    /*Sign out dropdown menu*/
-    .navbar-nav>li>.dropdown-menu {
-        margin-top:-10px;
-        background-color:#FAFAFA;
-    }
-
-    .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
-    {
-        color: #0062B8;
-    }
-    .navbar-default .navbar-nav>li>a
-    {
-        color:#00417A;
-    }
-    .btn-info, .btn-info:hover, .btn-info:focus
-    {
-        background-color:#47A9FF;
-        border-color:#47A9FF;
-    }
-    @media (min-width: 992px) {
-        .navbar-nav>li>a {
-            padding-top:25px;
-            padding-bottom:25px;
-        }
-    }
-
-    .input-group[class*=col-] {
-        padding-left:15px;
-        padding-right:15px;
-    }
-
-    .form-control[readonly],
-    .form-control[disabled]
-    {
-        border:none;
-        background-color:transparent;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        transition:none;
-        -webkit-transition: none;
-        cursor:initial;
-        -webkit-appearance:none;
-        -moz-appearance:none;
-        appearance:none;
-    }
-    .form-view-field {
-        padding-top:8px;
-        padding-left:5px;
-        display: block;
-    }
-
-    .nav-tabs {
-        margin-bottom:15px;
-    }
-    .nav-tabs.nav-tabs-blue {
-        border-bottom-color:#428bca;
-    }
-    .nav-tabs.nav-tabs-blue>li>a {
-        margin-bottom: 1px;
-    }
-    .nav-tabs.nav-tabs-blue li.active a{
-        background-color:#428bca;
-        color:#FFF;
-    }
-
-    .nav-tabs a{
-        background-color:#eee;
-    }
-
-    .file::-webkit-file-upload-button {
-        color: white;
-        background-color: #5bc0de;
-        border-color: #46b8da;
-        border: 1px solid transparent;
-        padding: 8px;
-        margin-top:-10px;
-        margin-left:-12px;
-    }
-
     h1,h2,h3,h4 {
         color: #3b6d44;
+    }
+    h1 {
+        font-size:42px;
+    }
+
+    /*button colors*/
+    .btn-info
+    {
+        background-color:#66b575;
+        border-color:#66b575;
+    }
+    .btn-info:hover, .btn-info:focus {
+        background-color:#58a366;
+        border-color:#58a366;
+    }
+    
+    /*cursor*/
+    .bug_wrapper {
+        min-width: 35px;
+        height: 35px;
+    }
+    .bug {
+        cursor: url("{{asset('assets/images/bugs/spray_can.png')}}"), pointer;
+    }
+
+    #footer {
+        text-align:center;
     }
 
     @show

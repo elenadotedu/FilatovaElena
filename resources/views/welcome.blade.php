@@ -6,230 +6,260 @@
     @parent
 @stop
 <style>
-    canvas#text {
-        position:absolute;
-        z-index: -1;
-    }
-    input[type="text"] {
-        border: 1px solid #ddd;
-        padding: 6px;
-        font-size: 18px;
-        width: 0px;
-        text-transform: uppercase;
-        top: 30px;
-        left: 130px;
-    }
-
-    input[type="submit"] {
-        display: block;
-        width: 100px;
-        border: 0;
-        line-height: 35px;
-        height: 35px;
-        color: #fff;
-        background: mediumpurple;
-        font-size: 18px;
-        top: 30px;
-        left: 250px;
-        cursor: pointer;
-    }
-
-    form {
-        width: 600px;
-        height: 100px;
+    canvas#site_map {
+        display:block;
+        margin: 0 auto;
     }
 </style>
 
-<script>
-    window.console = window.console || function(t) {};
-</script>
 
 {{-- Page content --}}
 @section('content')
-        <canvas id="text" width="500" height="200"></canvas>
-        <canvas id="stage" width="500" height="200"></canvas>
+    <div class="row">
+        <span id="canvas_wrapper">
+            <canvas id="site_map" width="800" height="582"></canvas>
+        </span>
+        {!! ViewHelper::bug('bug0') !!}
+        {!! ViewHelper::bug('bug19') !!}
+    </div>
+
 @section('body_bottom')
-        <script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout-f961f59a28ef4fd551736b43f94620b5.js"></script>
+    <script type="text/javascript">
+        var siteMap = new function ()
+        {
+            this.max_width = 700;
+            var canvas = document.getElementById('site_map');
+            var ctx = canvas.getContext('2d');
 
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/EasePack.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/TweenLite.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/easeljs-0.7.1.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/requestAnimationFrame.js"></script>
+            var elements = [
+                background = {
+                    img: new Image(), size_x: 700, size_y: 509, rotation: 0
+                },
+                gear1 = {
+                    img: new Image(), size_x: 50, size_y: 50, rotation: 0
+                },
+                gear2 = {
+                    img: new Image(), size_x: 30, size_y: 30, rotation: 6
+                },
+                child = {
+                    img: new Image(), size_x: 40, size_y: 52,
+                    orbit: {
+                        // current state's angel
+                        angle: 0,
 
-        <script>
-            (function(){
-                var stage, textStage, form, input;
-                var circles, textPixels, textFormed;
-                var offsetX, offsetY, text;
-                var colors = ['#58a366', '#6cbe7b', '#66b575', '#37A9CC', '#188EB2'];
+                        // delta angle
+                        d_angle: 15,
 
-                function init() {
-                    initStages();
-                    //initForm();
-                    initText();
-                    initCircles();
-                    animate();
-                    //addListeners();
-                    createText("HELLO");
-                }
+                        radius: 3,
 
-                // Init Canvas
-                function initStages() {
-                    offsetX = (window.innerWidth-600)/2 - 175;
-                    offsetY = (window.innerHeight-300)/2 - 50;
-                    textStage = new createjs.Stage("text");
-                    textStage.canvas.width = 600;
-                    textStage.canvas.height = 200;
+                        // ellipse coefficients
+                        e_x: 0, e_y: 1
+                    }
+                },
+                wrench = {
+                    img: new Image(), size_x: 40, size_y: 40,
+                    orbit: {
+                        // current state's angel
+                        angle: 0,
 
-                    stage = new createjs.Stage("stage");
-                    stage.canvas.width = window.innerWidth - 300;
-                    stage.canvas.height = 500;
-                }
+                        // delta angle
+                        d_angle: 5,
 
-                function initForm() {
-                    form = document.getElementById('form');
-                    form.style.top = offsetY+200+'px';
-                    form.style.left = offsetX+'px';
-                    input = document.getElementById('inputText');
-                }
+                        radius: 2,
 
-                function initText() {
-                    text = new createjs.Text("t", "80px 'Source Sans Pro'", "#eee");
-                    text.textAlign = 'center';
-                    text.x = 300;
-                }
+                        // ellipse coefficients
+                        e_x: 0, e_y: 0
+                    }
+                },
+                phone = {
+                    img: new Image(),
+                    size_x: 40, size_y: 40,
+                    orbit: {
+                        // current state's angel
+                        angle: 0,
 
-                function initCircles() {
-                    circles = [];
-                    for(var i=0; i<600; i++) {
-                        var circle = new createjs.Shape();
-                        var r = 7;
-                        var x = window.innerWidth*Math.random();
-                        var y = window.innerHeight*Math.random();
-                        var color = colors[Math.floor(i%colors.length)];
-                        var alpha = 0.2 + Math.random()*0.5;
-                        circle.alpha = alpha;
-                        circle.radius = r;
-                        circle.graphics.beginFill(color).drawCircle(0, 0, r);
-                        circle.x = x;
-                        circle.y = y;
-                        circles.push(circle);
-                        stage.addChild(circle);
-                        circle.movement = 'float';
-                        tweenCircle(circle);
+                        // delta angle
+                        d_angle: 5,
+
+                        radius: 2,
+
+                        // ellipse coefficients
+                        e_x: 0, e_y: 0
                     }
                 }
+            ];
 
+            this.init = function ()
+            {
+                canvas.width = background.size_x;
+                canvas.height = background.size_y;
+                background.img.src = '{{ asset('assets/images/home/site_map.jpg') }}';
+                gear1.img.src = '{{ asset('assets/images/home/gear1.png') }}';
+                gear2.img.src = '{{ asset('assets/images/home/gear2.png') }}';
+                child.img.src = '{{ asset('assets/images/home/child.png') }}';
+                wrench.img.src = '{{ asset('assets/images/home/wrench.png') }}';
+                phone.img.src = '{{ asset('assets/images/home/phone.png') }}';
 
-                // animating circles
-                function animate() {
-                    stage.update();
-                    requestAnimationFrame(animate);
-                }
+                window.requestAnimationFrame(draw);
+            }
 
-                function tweenCircle(c, dir) {
-                    if(c.tween) c.tween.kill();
-                    if(dir == 'in') {
-                        c.tween = TweenLite.to(c, 0.4, {x: c.originX, y: c.originY, ease:Quad.easeInOut, alpha: 1, radius: 5, scaleX: 0.4, scaleY: 0.4, onComplete: function() {
-                            c.movement = 'jiggle';
-                            tweenCircle(c);
-                        }});
-                    } else if(dir == 'out') {
-                        c.tween = TweenLite.to(c, 0.8, {x: window.innerWidth*Math.random(), y: window.innerHeight*Math.random(), ease:Quad.easeInOut, alpha: 0.2 + Math.random()*0.5, scaleX: 1, scaleY: 1, onComplete: function() {
-                            c.movement = 'float';
-                            tweenCircle(c);
-                        }});
-                    } else {
-                        if(c.movement == 'float') {
-                            c.tween = TweenLite.to(c, 5 + Math.random()*3.5, {x: c.x + -100+Math.random()*200, y: c.y + -100+Math.random()*200, ease:Quad.easeInOut, alpha: 0.2 + Math.random()*0.5,
-                                onComplete: function() {
-                                    tweenCircle(c);
-                                }});
-                        } else {
-                            c.tween = TweenLite.to(c, 0.05, {x: c.originX + Math.random()*3, y: c.originY + Math.random()*3, ease:Quad.easeInOut,
-                                onComplete: function() {
-                                    tweenCircle(c);
-                                }});
-                        }
+            function draw() {
+
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+
+                // push state to the stack as many times as it will later be restored
+                ctx.save();
+                ctx.save();
+                ctx.save();
+                ctx.save();
+                ctx.save();
+
+                // draw background
+                ctx.drawImage(background.img, 0, 0, background.size_x, background.size_y);
+
+                /* ---------------------------------------------------
+                 | Gear 1
+                 ----------------------------------------------------- */
+
+                // translate
+                ctx.translate(background.size_x * 0.6 + gear1.size_x * 0.5, background.size_y * 0.41 + gear1.size_y * 0.5);
+
+                // rotate
+                gear1.rotation += 0.75 * Math.PI/180;
+                if (gear1.rotation >= 360)
+                    gear1.rotation -= 360;
+                ctx.rotate(gear1.rotation);
+
+                // draw
+                ctx.drawImage(gear1.img, -gear1.size_x * 0.5, -gear1.size_y * 0.5, gear1.size_x, gear1.size_y);
+
+                /* ---------------------------------------------------
+                 | Gear 2
+                 ----------------------------------------------------- */
+
+                // undo the old roatation (leave translation to move gear relative to gear 1)
+                ctx.restore();
+
+                ctx.translate(background.size_x * 0.6 + gear1.size_x * 0.7 + gear2.size_x * 0.5, background.size_y * 0.41 + gear1.size_y * 0.7 + gear2.size_y * 0.5);
+
+                gear2.rotation += -1 * Math.PI/180;
+                if (gear2.rotation >= 360)
+                    gear2.rotation -= 360;
+
+                ctx.rotate(gear2.rotation);
+
+                ctx.drawImage(gear2.img, -gear2.size_x * 0.5, -gear2.size_y * 0.5, gear2.size_x, gear2.size_y);
+
+                /* ---------------------------------------------------
+                 | Child
+                 ----------------------------------------------------- */
+
+                ctx.restore();
+
+                child.orbit.angle += child.orbit.d_angle * Math.PI / 180;
+                if (child.orbit.angle > 360)
+                    child.orbit.angle -= 360;
+
+                ctx.translate(background.size_x * 0.29 + child.size_x * 0.5 + child.orbit.e_x * child.orbit.radius * Math.cos(child.orbit.angle), background.size_y * 0.645 + child.size_y * 0.5 + child.orbit.e_y * child.orbit.radius * Math.sin(child.orbit.angle) - child.orbit.radius)
+
+                ctx.drawImage(child.img, -child.size_x * 0.5, -child.size_y * 0.5, child.size_x, child.size_y);
+
+                /* ---------------------------------------------------
+                 | Wrench
+                 ----------------------------------------------------- */
+
+                ctx.restore();
+
+                wrench.orbit.angle += wrench.orbit.d_angle * Math.PI / 180;
+                if (wrench.orbit.angle > 360)
+                    wrench.orbit.angle -= 360;
+
+                ctx.translate(background.size_x * 0.76 + wrench.size_x * 0.5 + wrench.orbit.e_x * wrench.orbit.radius * Math.cos(wrench.orbit.angle), background.size_y * 0.77 + wrench.size_y * 0.5 + wrench.orbit.e_y * wrench.orbit.radius * Math.sin(wrench.orbit.angle) - wrench.orbit.radius)
+
+                ctx.drawImage(wrench.img, -wrench.size_x * 0.5, -wrench.size_y * 0.5, wrench.size_x, wrench.size_y);
+
+                /* ---------------------------------------------------
+                 | Phone
+                 ----------------------------------------------------- */
+
+                ctx.restore();
+
+                phone.orbit.angle += phone.orbit.d_angle * Math.PI / 180;
+                if (phone.orbit.angle > 360)
+                    phone.orbit.angle -= 360;
+
+                ctx.translate(background.size_x * 0.78 + phone.size_x * 0.5 + phone.orbit.e_x * phone.orbit.radius * Math.cos(phone.orbit.angle), background.size_y * 0.36 + phone.size_y * 0.5 + phone.orbit.e_y * phone.orbit.radius * Math.sin(phone.orbit.angle) - phone.orbit.radius)
+
+                ctx.drawImage(phone.img, -phone.size_x * 0.5, -phone.size_y * 0.5, phone.size_x, phone.size_y);
+
+                ctx.restore();
+
+                window.requestAnimationFrame(draw);
+            };
+
+            this.resize = function (factor)
+            {
+                canvas.width = factor * canvas.width;
+                canvas.height = factor * canvas.height;
+
+                background.size_x = factor * background.size_x;
+                background.size_y = factor * background.size_y;
+
+                gear1.size_x = factor * gear1.size_x;
+                gear1.size_y = factor * gear1.size_y;
+
+                gear2.size_x = factor * gear2.size_x;
+                gear2.size_y = factor * gear2.size_y;
+
+                child.size_x = factor * child.size_x;
+                child.size_y = factor * child.size_y;
+                child.orbit.radius = factor * child.orbit.radius;
+
+                wrench.size_x = factor * wrench.size_x;
+                wrench.size_y = factor * wrench.size_y;
+                wrench.orbit.radius = factor * wrench.orbit.radius;
+
+                phone.size_x = factor * phone.size_x;
+                phone.size_y = factor * phone.size_y;
+                phone.orbit.radius = factor * phone.orbit.radius;
+            };
+
+            this.getCanvas = function () {
+                return canvas;
+            }
+        }
+
+        siteMap.init();
+
+        $( window).resize( function() {
+            // get the width of the canvas's parent container
+            /*var site_map_canvas = siteMap.getCanvas();
+            var site_map_canvas_width = site_map_canvas.width;
+            var site_map_parent_width = $(site_map_canvas).parent().width();
+
+            // decrease size
+            if (site_map_parent_width < site_map_canvas_width)
+            {
+                siteMap.resize(site_map_parent_width / site_map_canvas_width);
+            }
+            else
+            {
+                if (site_map_parent_width > siteMap.max_width)
+                {
+                    // if canvas is not yet up to max width
+                    if (site_map_canvas_width < site_map_canvas.max_width)
+                    {
+                        // resize up to max width
+                        siteMap.resize(site_map_canvas.max_width / site_map_canvas_width);
                     }
                 }
-
-                function formText() {
-                    for(var i= 0, l=textPixels.length; i<l; i++) {
-                        circles[i].originX = offsetX + textPixels[i].x;
-                        circles[i].originY = offsetY + textPixels[i].y;
-                        tweenCircle(circles[i], 'in');
-                    }
-                    textFormed = true;
-                    if(textPixels.length < circles.length) {
-                        for(var j = textPixels.length; j<circles.length; j++) {
-                            circles[j].tween = TweenLite.to(circles[j], 0.4, {alpha: 0.1});
-                        }
-                    }
+                else
+                {
+                    // resize up to parent width
+                    siteMap.resize(site_map_parent_width / site_map_canvas_width);
                 }
-
-                function explode() {
-                    for(var i= 0, l=textPixels.length; i<l; i++) {
-                        tweenCircle(circles[i], 'out');
-                    }
-                    if(textPixels.length < circles.length) {
-                        for(var j = textPixels.length; j<circles.length; j++) {
-                            circles[j].tween = TweenLite.to(circles[j], 0.4, {alpha: 1});
-                        }
-                    }
-                }
-
-                // event handlers
-                function addListeners() {
-                    form.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        if(textFormed) {
-                            explode();
-                            if(input.value != '') {
-                                setTimeout(function() {
-                                    createText(input.value.toUpperCase());
-                                }, 810);
-                            } else {
-                                textFormed = false;
-                            }
-                        } else {
-                            createText(input.value.toUpperCase());
-                        }
-
-                    });
-                }
-
-                function createText(t) {
-                    var fontSize = 860/(t.length);
-                    if (fontSize > 160) fontSize = 160;
-                    text.text = t;
-                    text.font = "900 "+fontSize+"px 'Source Sans Pro'";
-                    text.textAlign = 'center';
-                    text.x = 300;
-                    text.y = (172-fontSize)/2;
-                    textStage.addChild(text);
-                    textStage.update();
-
-                    var ctx = document.getElementById('text').getContext('2d');
-                    var pix = ctx.getImageData(0,0,600,200).data;
-                    textPixels = [];
-                    for (var i = pix.length; i >= 0; i -= 4) {
-                        if (pix[i] != 0) {
-                            var x = (i / 4) % 600;
-                            var y = Math.floor(Math.floor(i/600)/4);
-
-                            if((x && x%8 == 0) && (y && y%8 == 0)) textPixels.push({x: x, y: y});
-                        }
-                    }
-
-                    formText();
-
-                }
-
-
-                window.onload = function() { init() };
-            })();
-            //@ sourceURL=pen.js
-        </script>
+            }*/
+        });
+    </script>
 @stop
 @stop

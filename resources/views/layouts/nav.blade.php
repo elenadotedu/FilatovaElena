@@ -6,12 +6,24 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href=""><img src="{{asset('assets/images/logo.png')}}" /><!--<span class="glyphicon glyphicon-home"></span>@lang('general.site_name')--></a>
+        <a class="navbar-brand" href="{{URL::to("/")}}"><img src="{{asset('assets/images/logo.png')}}" /><!--<span class="glyphicon glyphicon-home"></span>@lang('general.site_name')--></a>
     </div>
 
     <!-- Top bar -->
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                    <img src="{{ asset('assets/images/bugs/bug.png') }}"/>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <!--<li class="divider"></li>-->
+                    <li><a href="">Total Bugs: <span id="bugs_total_count">{{Bugs::totalCount()}}</span></a></li>
+                    <li><a href="">Dead: <span id="bugs_dead_count">{{Bugs::deadCount()}}</span></a></li>
+                    <li><a href="{{route('bugs.about')}}">About Bugs</a></li>
+                </ul>
+            </li>
 
         </ul>
     </div><!--/.nav-collapse -->
@@ -24,46 +36,81 @@
             ------------------------------------------------->
 
             <ul class="nav" id="side-menu">
-                <!--
-           Data Validation
+
+            <!-- JavaScript Tools
             ------------------------------------------------->
                 <li>
-                    <a href="#"><i class="fa fa-check-square fa-fw"></i> Data Validation<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> JavaScript Tools<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li pre-reg><a href="{{URL::to("validation_names")}}"><i class="icon-user"></i> Names</a></li>
-                        <li pre-reg><a href="{{URL::to("validation_duplicate_addresses")}}"><i class="icon-user"></i> Duplicate Addresses</a></li>
-                        <li pre-reg><a href="{{URL::to("validation_phone_numbers")}}"><i class="icon-user"></i> Phone Numbers</a></li>
+                        <li pre-reg><a href="{{URL::to("js_validators_name")}}">Validators<span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li pre-reg><a href="{{URL::to("js_validators_name")}}">Name</a></li>
+                            <li pre-reg><a href="{{URL::to("js_validators_address")}}">Address</a></li>
+                            <li pre-reg><a href="{{URL::to("js_validators_other")}}">Other</a></li>
+                        </ul>
+                        </li>
+
+                    </ul>
+
+                    <!-- /.nav-second-level -->
+                </li>
+
+                <!-- Database Applications
+                ------------------------------------------------->
+                <li>
+                    <a href="#"><i class="fa fa-database fa-fw"></i> Database Applications<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li pre-reg><a href="{{URL::to("db_applications/shared_science")}}">Shared Science</a>
+                        <li pre-reg><a href="{{URL::to("db_applications/zlyne")}}">Zlyne</a>
+                        </li>
+
                     </ul>
 
                     <!-- /.nav-second-level -->
                 </li>
 
                 <!--
-               AI
-               ------------------------------------------------->
+                AI
+                ------------------------------------------------->
                 <li>
                     <a href="#"><i class="fa fa-cogs fa-fw"></i> AI<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li pre-reg><a href=""><i class="icon-user"></i> Jugs Solver</a></li>
+                        <li pre-reg><a href="{{route('jug_solver.index')}}"><i class="icon-user"></i> Jug Solver</a></li>
                     </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
+                <!-- For Fun
+                ------------------------------------------------->
+                <li>
+                    <a href="#"><i class="fa fa-child fa-fw"></i> For Fun<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li pre-reg><a href="https://www.touchdevelop.com/aexqc" target="_blank"> Dirty Bits Game</a></li>
+                        <li pre-reg><a href="http://todturtle.byethost14.com/index.html?ckattempt=1">Turtle Tutorials</a>
+                            <!--<ul class="nav nav-third-level">
+                                <li pre-reg><a href="http://todturtle.byethost14.com/index.html?ckattempt=1" target="_blank">TouchDevelop</a></li>
+                                <li pre-reg><a href="">JavaScript</a></li>
+                            </ul>-->
+                        </li>
+                    </ul>
+
                     <!-- /.nav-second-level -->
                 </li>
                 <!--
               How
               ------------------------------------------------->
-                <li>
+                <!--<li>
                     <a href="#"><i class="fa fa-info-circle fa-fw"></i> How I made this website?<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li pre-reg><a href=""><i class="icon-user"></i> Jugs Solver</a></li>
                     </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                </li>-->
 
                 <!--
-              AI
+              About
               ------------------------------------------------->
                 <li>
-                    <a href="#"><i class="fa fa-leaf fa-fw"></i> Why so green?</a>
+                    <a href="{{URL::to('contact')}}"><i class="fa fa-phone fa-fw"></i> Contact</a>
                     <!-- /.nav-second-level -->
                 </li>
 
