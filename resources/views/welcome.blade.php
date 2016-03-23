@@ -61,8 +61,8 @@
             var canvas = document.getElementById('site_map');
             var ctx = canvas.getContext('2d');
 
-            if (!ctx) {
-                alert('canvas not supported');
+            if (ctx) {
+                alert('canvas supported');
             }
 
             var elements = [
