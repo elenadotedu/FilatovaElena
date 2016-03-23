@@ -130,8 +130,15 @@
                 wrench.img.src = '{{ asset('assets/images/home/wrench.png') }}';
                 phone.img.src = '{{ asset('assets/images/home/phone.png') }}';
 
-                alert(background.img.src);
-                window.requestAnimationFrame(draw);
+                if(window.requestAnimationFrame){
+                    requestAnimationFrame(draw);
+                } else if (window.webkitRequestAnimationFrame) {
+                    webkitRequestAnimationFrame(draw);
+                } else if (window.mozRequestAnimationFrame) {
+                    mozRequestAnimationFrame(draw);
+                } else {
+                    setTimeout(draw, 1000 / 60);
+                }
             }
 
             function draw() {
