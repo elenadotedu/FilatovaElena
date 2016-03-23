@@ -41,8 +41,8 @@
     {
         var that = this;
         this.options = {
-            dead_count_id: 'bugs_dead_count',
-            total_id: 'bugs_total_count'
+            dead_count_class: 'bugs_dead_count',
+            total_class: 'bugs_total_count'
         };
 
         this.init = function (options)
@@ -76,15 +76,23 @@
 
         this.updateScore = function()
         {
-            jQuery.ajax({
+            // increment bug count
+            $("." + that.options.dead_count_class).html(
+                    parseInt($("." + that.options.dead_count_class).html()) + 1
+            );
+           /* jQuery.ajax({
                         url:  '{{route("bugs.dead_count")}}',
                     })
                     .done(function(data) {
-                        $("#" + that.options.dead_count_id).html(data);
+                        $("." + that.options.dead_count_class).html(data);
+
+                        // animate counters
+                        $(".bugs_counts_outer").removeClass('bugs_counts_outer_animation');
+                        $(".bugs_counts_outer").addClass('bugs_counts_outer_animation');
                     })
                     .fail (function () {
                         alert("Error updating count");
-                    });
+                    });*/
         }
     };
 

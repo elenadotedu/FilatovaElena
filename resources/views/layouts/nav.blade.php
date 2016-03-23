@@ -14,13 +14,19 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                    <div class="bugs_counts_outer_wrapper">
+                        <div class="bugs_counts_outer">
+                            <span class="bugs_dead_count">{{Bugs::deadCount()}}</span> /
+                            <span class="bugs_total_count">{{Bugs::totalCount()}}</span>
+                        </div>
+                    </div>
                     <img src="{{ asset('assets/images/bugs/bug.png') }}"/>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <!--<li class="divider"></li>-->
-                    <li><a href="">Total Bugs: <span id="bugs_total_count">{{Bugs::totalCount()}}</span></a></li>
-                    <li><a href="">Dead: <span id="bugs_dead_count">{{Bugs::deadCount()}}</span></a></li>
+                    <li><a href="">Total Bugs: <span class="bugs_total_count">{{Bugs::totalCount()}}</span></a></li>
+                    <li><a href="">Dead: <span class="bugs_dead_count">{{Bugs::deadCount()}}</span></a></li>
                     <li><a href="{{route('bugs.about')}}">About Bugs</a></li>
                 </ul>
             </li>

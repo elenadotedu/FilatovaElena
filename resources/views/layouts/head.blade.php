@@ -89,6 +89,15 @@
     .navbar-right .dropdown-menu>li>a:hover {
         background-color: #58a366;
     }
+    @media (max-width: 767px) {
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+            color:#FFF;
+        }
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus,
+        .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover, .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+            color:#F5F5F5;
+        }
+    }
 
     /*Color of the side navigation links text*/
     #side-menu li a {
@@ -164,7 +173,39 @@
         border-color:#58a366;
     }
     
-    /*cursor*/
+    /*bugs counts*/
+    .bugs_counts_outer_wrapper {
+        float:left;
+        margin-right:5px;
+    }
+    .bugs_counts_outer {
+        white-space:nowrap;
+        padding: 7px;
+        border: 2px solid #FFF;
+        background-color:#c28b3c;
+        border-radius: 20px;
+        min-width: 74px;
+        text-align:right;
+    }
+    .bugs_counts_outer_animation {
+        -webkit-animation-name: bugkill; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+        animation-name: bugkill;
+        animation-duration: 1s;
+    }
+
+    /* Chrome, Safari, Opera */
+    @-webkit-keyframes bugkill {
+        from {background-color: #c28b3c;}
+        to {background-color: #66b575;}
+    }
+
+    /* Standard syntax */
+    @keyframes bugkill {
+        from {background-color: #c28b3c;}
+        to {background-color: #66b575;}
+    }
+    /*bugs*/
     .bug_wrapper {
         min-width: 35px;
         height: 35px;
