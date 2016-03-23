@@ -143,7 +143,7 @@
 
             function draw() {
 
-                ctx.clearRect(0,0,canvas.width,canvas.height);
+                //ctx.clearRect(0,0,canvas.width,canvas.height);
 
                 // push state to the stack as many times as it will later be restored
                 ctx.save();
