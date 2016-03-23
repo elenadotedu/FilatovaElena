@@ -15,7 +15,7 @@ class TestController extends Controller
        // dd($request->session());
         $path = realpath("Jugs.exe");
         if (!$path)
-            $path = "./Jugs";
+            $path = realpath("Jugs");
 
         dd($path);
         dd(exec($path." 2 5 3 0 0 4 0"));
