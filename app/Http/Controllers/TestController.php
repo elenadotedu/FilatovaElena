@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\FilatovaElena\Facades\Bugs;
+use App\FilatovaElena\BugsFacade as Bugs;
 
 class TestController extends Controller
 {
@@ -15,8 +15,9 @@ class TestController extends Controller
        // dd($request->session());
         $path = realpath("Jugs.exe");
         if (!$path)
-            $path = realpath("Jugs");
-        
+            $path = "./Jugs";
+
+        dd($path);
         dd(exec($path." 2 5 3 0 0 4 0"));
     }
 
