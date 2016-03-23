@@ -191,7 +191,7 @@
 
                 jQuery.ajax({
                             url: url,
-                            type: "POST",
+                            type: "GET",
                             data: data
                         })
                         .done(function (data) {
