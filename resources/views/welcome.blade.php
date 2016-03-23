@@ -47,7 +47,7 @@
 @section('content')
     <div class="row">
         <span id="canvas_wrapper">
-            <canvas id="site_map" width="800" height="582">{{ asset('assets/images/home/site_map_no_canvas.jpg') }}</canvas>
+            <canvas id="site_map" width="800" height="582"><img src="{{ asset('assets/images/home/site_map_no_canvas.jpg') }}"/></canvas>
         </span>
         {!! ViewHelper::bug('bug0') !!}
         {!! ViewHelper::bug('bug19') !!}
