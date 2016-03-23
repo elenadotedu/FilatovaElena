@@ -13,7 +13,11 @@ class TestController extends Controller
     //
     public function test(Request $request) {
        // dd($request->session());
-        return Bugs::get();
+        $path = realpath("Jugs.exe");
+        if (!$path)
+            $path = realpath("Jugs");
+        
+        dd(exec($path." 2 5 3 0 0 4 0"));
     }
 
     public function test2(Request $request)
