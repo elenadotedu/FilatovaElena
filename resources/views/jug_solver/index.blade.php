@@ -116,7 +116,7 @@
         <div class="panel-body">
             <p><a href="http://www.coolmath4kids.com/math_puzzles/Logic-waterjars/index.html">Play with the puzzle at CoolMath4Kids.</a></p>
             <p>Jugs puzzle in Die Hard 3:</p>
-            <p><iframe width="560" height="315" src="https://www.youtube.com/embed/BVtQNK_ZUJg" frameborder="0" allowfullscreen></iframe></p>
+            <p><iframe class="youtube" width="560" height="315" src="https://www.youtube.com/embed/BVtQNK_ZUJg" frameborder="0" allowfullscreen></iframe></p>
         </div>
     </div>
 

@@ -618,7 +618,7 @@ class ViewHelper {
 
             $content = '';
         }
-        return '<div class="bug_wrapper col-lg-1" id="'.$id.'">'.$content.'</div>';
+        return '<div class="bug_wrapper" id="'.$id.'">'.$content.'</div>';
     }
 
 };

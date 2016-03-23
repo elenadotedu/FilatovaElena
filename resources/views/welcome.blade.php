@@ -10,6 +10,36 @@
         display:block;
         margin: 0 auto;
     }
+
+    @media (max-width: 1028px) and (min-width:910px) {
+        canvas#site_map{
+            width: 500px;
+        }
+    }
+
+    @media (max-width: 909px) and (min-width:768px) {
+        canvas#site_map{
+            width: 400px;
+        }
+    }
+
+    @media (max-width: 768px) and (min-width:610px) {
+        canvas#site_map{
+            width: 600px;
+        }
+    }
+
+    @media (max-width: 609px) and (min-width:510px) {
+        canvas#site_map{
+            width: 500px;
+        }
+    }
+
+    @media (max-width: 509px) {
+        canvas#site_map{
+            width: 350px;
+        }
+    }
 </style>
 
 
@@ -17,7 +47,7 @@
 @section('content')
     <div class="row">
         <span id="canvas_wrapper">
-            <canvas id="site_map" width="800" height="582"></canvas>
+            <canvas id="site_map" width="800" height="582">{{ asset('assets/images/home/site_map_no_canvas.jpg') }}</canvas>
         </span>
         {!! ViewHelper::bug('bug0') !!}
         {!! ViewHelper::bug('bug19') !!}

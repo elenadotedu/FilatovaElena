@@ -32,6 +32,7 @@
 
         body #page-wrapper {
         background-color: #FDFDFD;
+        padding-bottom:15px;
     }
     /*Top and bottom colors*/
     #footer {
@@ -182,6 +183,7 @@
         white-space:nowrap;
         padding: 7px;
         border: 2px solid #FFF;
+        color: #FFF; /*prevent color jump*/
         background-color:#c28b3c;
         border-radius: 20px;
         min-width: 74px;
@@ -209,9 +211,15 @@
     .bug_wrapper {
         min-width: 35px;
         height: 35px;
+        float:left;
     }
     .bug {
         cursor: url("{{asset('assets/images/bugs/spray_can.png')}}"), pointer;
+    }
+
+    iframe.youtube {
+        max-width: 560px;
+        width: 100%;
     }
 
     #footer {
