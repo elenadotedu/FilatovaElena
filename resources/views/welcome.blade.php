@@ -47,7 +47,7 @@
 @section('content')
     <div class="row">
         <span id="canvas_wrapper">
-            <canvas id="site_map" width="800" height="582">Canvas is not supported.<img src="{{ asset('assets/images/home/site_map_no_canvas.jpg') }}"/></canvas>
+            <canvas id="site_map" width="800" height="582"><img src="{{ asset('assets/images/home/site_map_no_canvas.jpg') }}"/></canvas>
         </span>
         {!! ViewHelper::bug('bug0') !!}
         {!! ViewHelper::bug('bug19') !!}
@@ -60,10 +60,6 @@
             this.max_width = 700;
             var canvas = document.getElementById('site_map');
             var ctx = canvas.getContext('2d');
-
-            if (ctx) {
-                alert('canvas supported');
-            }
 
             var elements = [
                 background = {
@@ -134,6 +130,7 @@
                 wrench.img.src = '{{ asset('assets/images/home/wrench.png') }}';
                 phone.img.src = '{{ asset('assets/images/home/phone.png') }}';
 
+                alert(background.img.src);
                 window.requestAnimationFrame(draw);
             }
 
