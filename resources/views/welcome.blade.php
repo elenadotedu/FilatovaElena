@@ -61,6 +61,10 @@
             var canvas = document.getElementById('site_map');
             var ctx = canvas.getContext('2d');
 
+            if (!ctx) {
+                alert('canvas not supported');
+            }
+
             var elements = [
                 background = {
                     img: new Image(), size_x: 700, size_y: 509, rotation: 0
