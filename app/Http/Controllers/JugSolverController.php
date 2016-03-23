@@ -64,7 +64,12 @@ class JugSolverController extends Controller
         $output = [];
         $return = [];
 
-        exec("Jugs ".$param_string, $output, $return);
+        // resolve path
+        $path = realpath("Jugs.exe");
+        if (!$path)
+            $path = realpath("Jugs");
+
+        exec($path." ".$param_string, $output, $return);
 
         return [
             "output" => $output,

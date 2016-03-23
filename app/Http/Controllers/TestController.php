@@ -17,7 +17,6 @@ class TestController extends Controller
         if (!$path)
             $path = realpath("Jugs");
 
-        dd($path);
         dd(exec($path." 2 5 3 0 0 4 0"));
     }
 
