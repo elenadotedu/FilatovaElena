@@ -6,11 +6,11 @@
     <meta charset="utf-8" />
     <title>
         @section('title')
-            @lang('general.site_name')
+            :: FilatovaElena.com
         @show
     </title>
-    <meta name="author" content="Shared Science" />
-    <meta name="description" content="A CRM system for Shared Science." />
+    <meta name="author" content="Elena Filatova" />
+    <meta name="description" content="A personal website." />
 
     <!-- Mobile Specific Metas
     ================================================== -->
