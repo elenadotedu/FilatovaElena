@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Shared Science ::
+    Shared Science
     @parent
 @stop
 <style>

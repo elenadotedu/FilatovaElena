@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Zlyne ::
+    Zlyne
     @parent
 @stop
 <style>

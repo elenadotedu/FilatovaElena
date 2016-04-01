@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Welcome ::
+    Jug Solver
     @parent
 @stop
 <style>

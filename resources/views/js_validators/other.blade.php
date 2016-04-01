@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Data Validation - Names ::
+JS Validators - Other
 @parent
 @stop
 

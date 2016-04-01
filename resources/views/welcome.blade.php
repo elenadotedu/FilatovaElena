@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Welcome ::
+    Welcome
     @parent
 @stop
 <style>
@@ -130,6 +130,9 @@
                 wrench.img.src = '{{ asset('assets/images/home/wrench.png') }}';
                 phone.img.src = '{{ asset('assets/images/home/phone.png') }}';
 
+                // draw background
+                ctx.drawImage(background.img, 0, 0, background.size_x, background.size_y);
+
                 if(window.requestAnimationFrame){
                     requestAnimationFrame(draw);
                 } else if (window.webkitRequestAnimationFrame) {
@@ -143,7 +146,7 @@
 
             function draw() {
 
-                //ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.clearRect(0,0,canvas.width,canvas.height);
 
                 // push state to the stack as many times as it will later be restored
                 ctx.save();
@@ -152,7 +155,6 @@
                 ctx.save();
                 ctx.save();
 
-                // draw background
                 ctx.drawImage(background.img, 0, 0, background.size_x, background.size_y);
 
                 /* ---------------------------------------------------

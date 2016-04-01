@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Welcome ::
+    About Bugs
     @parent
 @stop
 <style>
