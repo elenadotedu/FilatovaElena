@@ -16,6 +16,7 @@
         <h1>Contact</h1>
     </div>
     <p>Contact Elena Filatova for web developement or software work, to report a bug or to suggest an idea.</p>
+    <p><img src="{{URL:: asset('assets/images/icons/pdf_icon.png')}}" /> <a href="{{URL:: asset('assets/files/resume.pdf')}}">Download Resume</a></p>
     <div class="row">
         {!! ViewHelper::bug('bug8') !!}
         {!! ViewHelper::bug('bug9') !!}

@@ -113,18 +113,10 @@
                 </li>-->
 
                 <!--
-            Resume
-            ------------------------------------------------->
-                <li>
-                    <a href="{{URL::to('resume')}}"><i class="fa fa-file-text fa-fw"></i> Resume</a>
-                    <!-- /.nav-second-level -->
-                </li>
-
-                <!--
               About
               ------------------------------------------------->
                 <li>
-                    <a href="{{URL::to('contact')}}"><i class="fa fa-phone fa-fw"></i> Contact</a>
+                    <a href="{{URL::to('contact')}}"><i class="fa fa-phone fa-fw"></i> Resume / Contact</a>
                     <!-- /.nav-second-level -->
                 </li>
 
