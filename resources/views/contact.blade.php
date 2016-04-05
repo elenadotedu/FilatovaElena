@@ -17,11 +17,6 @@
     </div>
     <p>Contact Elena Filatova for web developement or software work, to report a bug or to suggest an idea.</p>
     <p><img src="{{URL:: asset('assets/images/icons/pdf_icon.png')}}" /> <a href="{{URL:: asset('assets/files/resume.pdf')}}">Download Resume</a></p>
-    <div class="row">
-        {!! ViewHelper::bug('bug8') !!}
-        {!! ViewHelper::bug('bug9') !!}
-        {!! ViewHelper::bug('bug10') !!}
-    </div>
     <h2>Details</h2>
     <p>How to contact.</p>
     <div class="panel panel-default">
@@ -31,6 +26,12 @@
             <p><strong>Google+:</strong> <a href="https://plus.google.com/+ElenaFilatova3">https://plus.google.com/+ElenaFilatova3</a></p>
             <p><strong>Location: </strong>Long Beach, CA</p>
         </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+        {!! ViewHelper::bug('bug8') !!}
+        {!! ViewHelper::bug('bug9') !!}
+        {!! ViewHelper::bug('bug10') !!}
     </div>
 
 @section('body_bottom')
